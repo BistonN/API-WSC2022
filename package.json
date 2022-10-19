@@ -1,0 +1,25 @@
+{
+  "name": "api-wsc2022-tp04",
+  "version": "1.0.0",
+  "description": "",
+  "main": "nodemon server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BistonN/API-WSC2022-TP04.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BistonN/API-WSC2022-TP04/issues"
+  },
+  "homepage": "https://github.com/BistonN/API-WSC2022-TP04#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "helmet": "^6.0.0",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.20"
+  }
+}

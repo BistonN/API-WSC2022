@@ -1,2 +1,2 @@
-*.vscode
-*_pycache_
+*node_modules
+nodemon.json

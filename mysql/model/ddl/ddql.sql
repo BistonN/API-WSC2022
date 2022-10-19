@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS wsdb.users (
   name VARCHAR(200) NOT NULL,
   email VARCHAR(200) NOT NULL,
   password VARCHAR(200) NOT NULL,
+  wscoins INT NOT NULL DEFAULT 0,
   created DATETIME NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (id_user))
 ENGINE = InnoDB;
