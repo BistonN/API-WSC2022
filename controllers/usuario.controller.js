@@ -12,8 +12,6 @@ exports.verificarUsuario = async (req, res, next) => {
         );
         if (verificarUsuario.length >= 1) {
             res.locals.id_usuario = verificarUsuario[0].id_usuario;
-        } else {
-            return res.status(404).send({ mensagem: 'E-mail não encontrado!' });
         }
         next();
     } catch (error) {
@@ -26,14 +24,14 @@ exports.registrarUsuario = async (req, res) => {
     try {
         if (!res.locals.id_usuario) {
             const hash = await bcrypt.hash(req.body.senha, 10);
-            const results = await mysql.execute(`
-                                    INSERT INTO usuarios
-                                                (
-                                                nome,
-                                                email,
-                                                senha
-                                                )
-                                        VALUES (?,?,?);`, [req.body.nome, req.body.email, hash]);
+            await mysql.execute(`
+                INSERT INTO usuarios (
+                            nome,
+                            email,
+                            senha
+                        ) VALUES (?,?,?);`, 
+                [req.body.nome, req.body.email, hash]
+            );
             return res.status(200).send({ message: 'Usuário Cadastrado com Sucesso!' });
         } else {
             return res.status(409).send({ message: 'E-mail já cadastrado!' });
@@ -46,8 +44,9 @@ exports.registrarUsuario = async (req, res) => {
 
 exports.getDadosUsuario = async (req, res, next) => {
     try {
-        const dadosUsuarios = await mysql.execute(
-            `SELECT id_usuario, 
+        if (res.locals.id_usuario) {
+            const dadosUsuarios = await mysql.execute(
+                `SELECT id_usuario, 
                     nome, 
                     email, 
                     senha, 
@@ -55,10 +54,13 @@ exports.getDadosUsuario = async (req, res, next) => {
                     dt_criacao 
                FROM usuarios 
               WHERE id_usuario = ?`,
-            [res.locals.id_usuario]
-        );
-        res.locals.usuario = dadosUsuarios[0];
-        next();
+                [res.locals.id_usuario]
+            );
+            res.locals.usuario = dadosUsuarios[0];
+            next();
+        } else {
+            return res.status(404).send({ mensagem: 'Usuário não encontrado!' });
+        }
     } catch (error) {
         utils.getError(error);
         return res.status(500).send({ error: error });
