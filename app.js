@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const helmet = require('helmet');
 
 // routes-controllers
+const usuarioRoute = require('./routes/usuario.route');
 
 app.use(morgan('dev'));
 
@@ -27,6 +28,7 @@ app.use((req, res, next) => {
 });
 
 // routes 
+app.use('/usuario', usuarioRoute);
 
 app.use((req, res, next) => {
     const error = new Error('Not found...');
