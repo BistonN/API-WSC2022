@@ -7,8 +7,8 @@ const jwt = require('jsonwebtoken');
 exports.verificarUsuario = async (req, res, next) => {
     try {
         const verificarUsuario = await mysql.execute(
-            `SELECT id_usuario FROM usuarios WHERE email = ?;`,
-            [req.body.email]
+            `SELECT id_usuario FROM usuarios WHERE usuario = ?;`,
+            [req.body.usuario]
         );
         if (verificarUsuario.length >= 1) {
             res.locals.id_usuario = verificarUsuario[0].id_usuario;
@@ -52,7 +52,10 @@ exports.getDadosUsuario = async (req, res, next) => {
                     nome, 
                     email, 
                     senha, 
-                    saldo, 
+                    celular,
+                    dt_nascimento,
+                    peso,
+                    altura,
                     dt_criacao 
                FROM usuarios 
               WHERE id_usuario = ?`,

@@ -2,8 +2,10 @@
   "name": "api-wsc2022-tp04",
   "version": "1.0.0",
   "description": "",
-  "main": "nodemon server.js",
+  "main": "server.js",
   "scripts": {
+    "start": "nodemon server.js",
+    "debug": "nodemon --inspect server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
