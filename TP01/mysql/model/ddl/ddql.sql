@@ -20,6 +20,8 @@ CREATE TABLE IF NOT EXISTS wsdb.usuarios (
   email VARCHAR(200) NOT NULL,
   senha VARCHAR(200) NOT NULL,
   saldo FLOAT NOT NULL DEFAULT 0,
+  celular VARCHAR(45),
+  usuario VARCHAR(45) NOT NULL,
   dt_criacao DATETIME NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (id_usuario))
 ENGINE = InnoDB;

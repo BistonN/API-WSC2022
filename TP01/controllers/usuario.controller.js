@@ -28,9 +28,11 @@ exports.registrarUsuario = async (req, res) => {
                 INSERT INTO usuarios (
                             nome,
                             email,
-                            senha
-                        ) VALUES (?,?,?);`, 
-                [req.body.nome, req.body.email, hash]
+                            senha,
+                            usuario,
+                            celular
+                        ) VALUES (?,?,?,?,?);`, 
+                [req.body.nome, req.body.email, hash, req.body.usuario, req.body.celular]
             );
             return res.status(200).send({ message: 'Usuário Cadastrado com Sucesso!' });
         } else {
