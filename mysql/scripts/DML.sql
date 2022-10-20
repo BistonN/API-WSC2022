@@ -1,3 +1,4 @@
+-- TP01
 INSERT INTO dias_semanas (nome, sigla, codigo)
 VALUES 
 ('Domingo', 'Dom', 'D'),

@@ -7,6 +7,7 @@ const helmet = require('helmet');
 // routes-controllers
 const usuarioRoute = require('./routes/usuario.route');
 const treinoRoute = require('./routes/treino.route');
+const diasSemanaRoute = require('./routes/dias_semana.route');
 
 app.use(morgan('dev'));
 
@@ -31,6 +32,7 @@ app.use((req, res, next) => {
 // routes 
 app.use('/usuario', usuarioRoute);
 app.use('/treino', treinoRoute);
+app.use('/dia_semana', diasSemanaRoute);
 
 app.use((req, res, next) => {
     const error = new Error('Not found...');
