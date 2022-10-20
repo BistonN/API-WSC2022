@@ -31,12 +31,12 @@ exports.registrarUsuario = async (req, res) => {
                             senha,
                             usuario,
                             celular
-                        ) VALUES (?,?,?,?,?);`, 
+                        ) VALUES (?,?,?,?,?);`,
                 [req.body.nome, req.body.email, hash, req.body.usuario, req.body.celular]
             );
             return res.status(200).send({ message: 'Usuário Cadastrado com Sucesso!' });
         } else {
-            return res.status(409).send({ message: 'E-mail já cadastrado!' });
+            return res.status(409).send({ message: 'Usuário já cadastrado!' });
         }
     } catch (error) {
         utils.getError(error);
@@ -90,10 +90,41 @@ exports.login = async (req, res) => {
                 email: res.locals.usuario.email,
                 id_usuario: res.locals.usuario.id_usuario,
                 nome: res.locals.usuario.nome,
-            })
+            });
         } else {
             return res.status(401).send({ message: 'Falha na autenticação' });
         }
+    } catch (error) {
+        utils.getError(error);
+        return res.status(500).send({ error: error });
+    }
+}
+
+exports.atualizarDadosUsuario = async (req, res, next) => {
+    try {
+        const resultado = await mysql.execute(`
+            UPDATE usuarios 
+               SET dt_nascimento = ?,
+                   peso          = ?,
+                   altura        = ?
+             WHERE id_usuario    = ?;
+        `, [req.body.dt_nascimento, req.body.peso, req.body.altura, res.locals.id_usuario]);
+        return res.status(200).send({
+            message: 'Atualizado com sucesso',
+            resultado: resultado
+        });
+    } catch (error) {
+        utils.getError(error);
+        return res.status(500).send({ error: error });
+    }
+}
+
+exports.returnDadosUsuario = async (req, res, next) => {
+    try {
+        return res.status(200).send({
+            dados_usuario: res.locals.usuario,
+            mensagem: 'Dados retornados com Sucesso!'
+        });
     } catch (error) {
         utils.getError(error);
         return res.status(500).send({ error: error });

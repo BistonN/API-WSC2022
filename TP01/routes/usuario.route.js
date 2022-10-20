@@ -15,6 +15,19 @@ router.post(
     usuarioController.verificarUsuario,
     usuarioController.getDadosUsuario,
     usuarioController.login
-)
+);
+
+router.put(
+    '/',
+    login.required,
+    usuarioController.atualizarDadosUsuario
+);
+
+router.get(
+    '/',
+    login.required,
+    usuarioController.getDadosUsuario,
+    usuarioController.returnDadosUsuario
+);
 
 module.exports = router;
