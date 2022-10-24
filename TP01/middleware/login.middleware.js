@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const api_config = require('../utils').getApiConfig();
+const api_config = require('../../utils').getApiConfig();
 
 exports.optional = (req, res, next) => {
     res.locals.id_usuario = 0;

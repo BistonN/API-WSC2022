@@ -1,4 +1,4 @@
-const mysql = require('../mysql');
+const mysql = require('../../mysql');
 const utils = require('./utils.controller');
 
 exports.getDiasSemana = async (req, res, next) => {

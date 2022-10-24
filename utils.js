@@ -2,7 +2,7 @@ const nodemon = require("nodemon");
 const { env } = require("process");
 
 exports.getApiConfig = () => {
-const envNodemon = require('../nodemon.json');
+const envNodemon = require('./nodemon.json');
 
     return {
         jwt_key: 'T7^f%ym0UUz8',

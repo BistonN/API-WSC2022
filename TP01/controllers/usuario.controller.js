@@ -1,7 +1,7 @@
-const mysql = require('../mysql');
+const mysql = require('../../mysql');
 const bcrypt = require('bcrypt');
 const utils = require('./utils.controller');
-const api_config = require('../utils').getApiConfig();
+const api_config = require('../../utils').getApiConfig();
 const jwt = require('jsonwebtoken');
 
 exports.verificarUsuario = async (req, res, next) => {
@@ -34,7 +34,7 @@ exports.registrarUsuario = async (req, res) => {
                         ) VALUES (?,?,?,?,?);`,
                 [req.body.nome, req.body.email, hash, req.body.usuario, req.body.celular]
             );
-            return res.status(200).send({ message: 'Usuário Cadastrado com Sucesso!' });
+            return res.status(201).send({ message: 'Usuário Cadastrado com Sucesso!' });
         } else {
             return res.status(409).send({ message: 'Usuário já cadastrado!' });
         }
@@ -84,7 +84,7 @@ exports.login = async (req, res) => {
                 id_usuario: res.locals.usuario.id_usuario,
                 nome: res.locals.usuario.nome,
             }, api_config.jwt_key);
-            return res.status(201).send({
+            return res.status(200).send({
                 message: 'Autenticado com sucesso',
                 token: token,
                 email: res.locals.usuario.email,

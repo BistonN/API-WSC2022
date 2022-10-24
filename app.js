@@ -4,10 +4,10 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
 
-// routes-controllers
-const usuarioRoute = require('./routes/usuario.route');
-const treinoRoute = require('./routes/treino.route');
-const diasSemanaRoute = require('./routes/dias_semana.route');
+// routes-controllers TP01
+const usuarioRoute = require('./TP01/routes/usuario.route');
+const treinoRoute = require('./TP01/routes/treino.route');
+const diasSemanaRoute = require('./TP01/routes/dias_semana.route');
 
 app.use(morgan('dev'));
 
@@ -29,7 +29,7 @@ app.use((req, res, next) => {
     next();
 });
 
-// routes 
+// routes TP01
 app.use('/usuario', usuarioRoute);
 app.use('/treino', treinoRoute);
 app.use('/dia_semana', diasSemanaRoute);
