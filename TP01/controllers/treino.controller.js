@@ -1,5 +1,5 @@
 const mysql = require('../../mysql');
-const utils = require('./utils.controller');
+const utils = require('../../utils');
 
 exports.getTiposTreinos = async (req, res, next) => {
     try {

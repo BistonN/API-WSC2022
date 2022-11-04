@@ -15,3 +15,10 @@ const envNodemon = require('./nodemon.json');
         mysql_port: 3306
     };
 }
+
+exports.getError = (error) => {
+    if (error) {
+        console.error(error);
+        return true;
+    }
+};

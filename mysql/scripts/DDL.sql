@@ -14,6 +14,7 @@ USE wscdb ;
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS wscdb.usuarios ;
 
+-- TP01
 CREATE TABLE IF NOT EXISTS wscdb.usuarios (
   id_usuario INT NOT NULL AUTO_INCREMENT,
   nome VARCHAR(200) NOT NULL,
@@ -84,4 +85,14 @@ CREATE TABLE IF NOT EXISTS wscdb.treinos_semanais (
     REFERENCES wscdb.dias_semanas (id_dia_semana)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+-- TP02
+CREATE TABLE IF NOT EXISTS wscdb.corridas_caminhadas (
+  id_corrida_caminhada INT NOT NULL AUTO_INCREMENT,
+  data_hora DATETIME NOT NULL,
+  distancia FLOAT NOT NULL,
+  tempo TIME NOT NULL,
+  criado DATETIME NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (id_corrida_caminhada))
 ENGINE = InnoDB;

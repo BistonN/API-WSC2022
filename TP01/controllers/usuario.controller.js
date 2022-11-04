@@ -1,6 +1,6 @@
 const mysql = require('../../mysql');
 const bcrypt = require('bcrypt');
-const utils = require('./utils.controller');
+const utils = require('../../utils');
 const api_config = require('../../utils').getApiConfig();
 const jwt = require('jsonwebtoken');
 

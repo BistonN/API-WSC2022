@@ -2,12 +2,12 @@ const express = require('express');
 const router = express.Router();
 const login = require('../middleware/login.middleware');
 
-const treinoSemanalController = require('../controllers/treinos_semanal.controller');
+const diasSemanasController = require('../controllers/diasSemana.controller');
 
-router.post(
-    '/:nome_treino',
+router.get(
+    '/',
     login.required,
-    treinoSemanalController.cadastrarTreinoSemanal
+    diasSemanasController.getDiasSemana
 );
 
 module.exports = router;
