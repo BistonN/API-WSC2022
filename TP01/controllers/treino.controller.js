@@ -3,7 +3,7 @@ const utils = require('../../utils');
 
 exports.getTiposTreinos = async (req, res, next) => {
     try {
-        const resultado = await mysql.execute(`SELECT * FROM treinos`);
+        const resultado = await mysql.execute(`SELECT * FROM tp01_treinos`);
         return res.status(200).send({ resultado: resultado });
     } catch (error) {
         utils.getError(error);

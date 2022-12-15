@@ -5,7 +5,7 @@ exports.getApiConfig = () => {
 const envNodemon = require('./nodemon.json');
 
     return {
-        jwt_key: 'T7^f%ym0UUz8',
+        jwt_key: 'T7^f%ym0UUz8', // get out 0_0
         url_dominio: 'http://localhost:3000',
         port: 3000,
         web_mysql_user: envNodemon.env.MYSQL_USER,

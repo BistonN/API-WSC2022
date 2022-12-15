@@ -4,11 +4,11 @@ const utils = require('../../utils');
 exports.cadastrarCorridaCaminhada = async (req, res, next) => {
     try {
         const resultado = await mysql.execute(`
-            INSERT INTO corridas_caminhadas(data_hora, distancia, tempo)
+            INSERT INTO tp02_corridas_caminhadas(data_hora, distancia, tempo)
             VALUES(?, ?, ?);
         `, [req.body.data_hora, req.body.distancia, req.body.tempo]);
         res.status(200).send({
-            'resultado': resultado,
+            resultado: resultado,
             mensagem: 'Atividade cadastrada com Sucesso!'
         });
     } catch (error) {

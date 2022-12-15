@@ -5,13 +5,16 @@ const bodyParser = require('body-parser');
 const helmet = require('helmet');
 
 // routes-controllers TP01
-const usuarioRoute = require('./TP01/routes/usuario.route');
-const treinoRoute = require('./TP01/routes/treino.route');
-const diasSemanaRoute = require('./TP01/routes/diasSemana.route');
-const treinoSemanalRoute = require('./TP01/routes/treinosSemanal.route');
+const tp01usuarioRoute = require('./TP01/routes/usuario.route');
+const tp01treinoRoute = require('./TP01/routes/treino.route');
+const tp01diasSemanaRoute = require('./TP01/routes/diasSemana.route');
+const tp01treinoSemanalRoute = require('./TP01/routes/treinosSemanal.route');
 
 // routes-controllers TP02
-// const corridaCaminhadaRoute = require('./TP01 copy/routes/corridaCaminhada.route');
+const corridaCaminhadaRoute = require('./TP02/routes/corridaCaminhada.route');
+
+// routes-controllers TP03
+const tp03usuarioRoute = require('./TP03/routes/usuario.route');
 
 app.use(morgan('dev'));
 
@@ -34,13 +37,17 @@ app.use((req, res, next) => {
 });
 
 // routes TP01
-app.use('/usuario', usuarioRoute);
-app.use('/treino', treinoRoute);
-app.use('/dia_semana', diasSemanaRoute);
-app.use('/treino_semanal', treinoSemanalRoute);
+app.use('/tp01/usuario', tp01usuarioRoute);
+app.use('/tp01/treino', tp01treinoRoute);
+app.use('/tp01/dia_semana', tp01diasSemanaRoute);
+app.use('/tp01/treino_semanal', tp01treinoSemanalRoute);
+
 
 // routes TP02
-// app.use('/corrida_caminhada', corridaCaminhadaRoute);
+app.use('tp02/corrida_caminhada', corridaCaminhadaRoute);
+
+// routes TP02
+app.use('/tp03/usuario', tp03usuarioRoute);
 
 app.use((req, res, next) => {
     const error = new Error('Not found...');
