@@ -1,14 +1,14 @@
 const mysql = require('../../mysql');
-const bcrypt = require('bcrypt');
 const utils = require('../../utils');
+const bcrypt = require('bcrypt');
 const api_config = require('../../utils').getApiConfig();
 const jwt = require('jsonwebtoken');
 
 exports.verificarUsuario = async (req, res, next) => {
     try {
         const verificarUsuario = await mysql.execute(
-            `SELECT id_usuario FROM tp01_usuarios WHERE usuario = ?;`,
-            [req.body.usuario]
+            `SELECT id_usuario FROM tp04_usuarios WHERE email = ?;`,
+            [req.body.email]
         );
         if (verificarUsuario.length >= 1) {
             res.locals.id_usuario = verificarUsuario[0].id_usuario;
@@ -20,45 +20,17 @@ exports.verificarUsuario = async (req, res, next) => {
     }
 }
 
-exports.registrarUsuario = async (req, res) => {
-    try {
-        if (!res.locals.id_usuario) {
-            const hash = await bcrypt.hash(req.body.senha, 10);
-            await mysql.execute(`
-                INSERT INTO tp01_usuarios (
-                            nome,
-                            email,
-                            senha,
-                            usuario,
-                            celular
-                        ) VALUES (?,?,?,?,?);`,
-                [req.body.nome, req.body.email, hash, req.body.usuario, req.body.celular]
-            );
-            return res.status(201).send({ message: 'Usuário Cadastrado com Sucesso!' });
-        } else {
-            return res.status(409).send({ message: 'Usuário já cadastrado!' });
-        }
-    } catch (error) {
-        utils.getError(error);
-        return res.status(500).send({ error: error });
-    }
-}
-
 exports.getDadosUsuario = async (req, res, next) => {
     try {
         if (res.locals.id_usuario) {
             const dadosUsuarios = await mysql.execute(
                 `SELECT id_usuario, 
-                    nome, 
-                    email, 
-                    senha, 
-                    celular,
-                    dt_nascimento,
-                    peso,
-                    altura,
-                    dt_criacao 
-               FROM tp01_usuarios 
-              WHERE id_usuario = ?`,
+                        nome, 
+                        email, 
+                        saldo,
+                        senha
+                   FROM tp04_usuarios 
+                  WHERE id_usuario = ?`,
                 [res.locals.id_usuario]
             );
             res.locals.usuario = dadosUsuarios[0];
@@ -90,6 +62,7 @@ exports.login = async (req, res) => {
                 email: res.locals.usuario.email,
                 id_usuario: res.locals.usuario.id_usuario,
                 nome: res.locals.usuario.nome,
+                saldoWSCoins: res.locals.usuario.saldo,
             });
         } else {
             return res.status(401).send({ message: 'Falha na autenticação' });
@@ -100,30 +73,13 @@ exports.login = async (req, res) => {
     }
 }
 
-exports.atualizarDadosUsuario = async (req, res, next) => {
-    try {
-        const resultado = await mysql.execute(`
-            UPDATE tp01_usuarios 
-               SET dt_nascimento = ?,
-                   peso          = ?,
-                   altura        = ?
-             WHERE id_usuario    = ?;
-        `, [req.body.dt_nascimento, req.body.peso, req.body.altura, res.locals.id_usuario]);
-        return res.status(200).send({
-            message: 'Atualizado com sucesso',
-            resultado: resultado
-        });
-    } catch (error) {
-        utils.getError(error);
-        return res.status(500).send({ error: error });
-    }
-}
-
-exports.returnDadosUsuario = async (req, res, next) => {
+exports.returnDados = async (req, res, next) => {
     try {
         return res.status(200).send({
-            dados_usuario: res.locals.usuario,
-            mensagem: 'Dados retornados com Sucesso!'
+            email: res.locals.usuario.email,
+            id_usuario: res.locals.usuario.id_usuario,
+            nome: res.locals.usuario.nome,
+            saldoWSCoins: res.locals.usuario.saldo,
         });
     } catch (error) {
         utils.getError(error);
