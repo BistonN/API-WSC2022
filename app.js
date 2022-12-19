@@ -16,6 +16,10 @@ const corridaCaminhadaRoute = require('./TP02/routes/corridaCaminhada.route');
 // routes-controllers TP03
 const tp03usuarioRoute = require('./TP03/routes/usuario.route');
 
+// routes-controllers TP04
+const tp04usuarioRoute = require('./TP04/routes/usuario.route');
+const tp04produtoRoute = require('./TP04/routes/produto.route');
+
 app.use(morgan('dev'));
 
 app.use(helmet());
@@ -42,12 +46,15 @@ app.use('/tp01/treino', tp01treinoRoute);
 app.use('/tp01/dia_semana', tp01diasSemanaRoute);
 app.use('/tp01/treino_semanal', tp01treinoSemanalRoute);
 
-
 // routes TP02
 app.use('tp02/corrida_caminhada', corridaCaminhadaRoute);
 
-// routes TP02
+// routes TP03
 app.use('/tp03/usuario', tp03usuarioRoute);
+
+// routes TP04
+app.use('/tp04/usuario', tp04usuarioRoute);
+app.use('/tp04/produto', tp04produtoRoute);
 
 app.use((req, res, next) => {
     const error = new Error('Not found...');

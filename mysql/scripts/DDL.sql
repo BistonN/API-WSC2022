@@ -114,3 +114,66 @@ CREATE TABLE IF NOT EXISTS wscdb.tp03_usuarios (
   wscoins FLOAT NOT NULL DEFAULT 0,
   PRIMARY KEY (id_usuario))
 ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table wscdb.tp04_usuarios
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS wscdb.tp04_usuarios ;
+
+CREATE TABLE IF NOT EXISTS wscdb.tp04_usuarios (
+  id_usuario INT NOT NULL AUTO_INCREMENT,
+  nome VARCHAR(200) NOT NULL,
+  email VARCHAR(200) NOT NULL,
+  senha VARCHAR(200) NOT NULL,
+  saldo FLOAT NOT NULL DEFAULT 0,
+  dt_criacao DATETIME NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (id_usuario))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table wscdb.tp04_produtos
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS wscdb.tp04_produtos ;
+
+CREATE TABLE IF NOT EXISTS wscdb.tp04_produtos (
+  id_produto INT NOT NULL AUTO_INCREMENT,
+  nome MEDIUMTEXT NOT NULL,
+  descricao LONGTEXT NOT NULL,
+  img_url VARCHAR(200) NOT NULL,
+  preco FLOAT NOT NULL,
+  id_usuario_created INT NOT NULL,
+  dt_criacao DATETIME NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (id_produto),
+  INDEX fk_products_users1_idx (id_usuario_created ASC) VISIBLE,
+  CONSTRAINT fk_products_users1
+    FOREIGN KEY (id_usuario_created)
+    REFERENCES wscdb.tp04_usuarios (id_usuario)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table wscdb.tp_04_historico_compra
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS wscdb.tp_04_historico_compra ;
+
+CREATE TABLE IF NOT EXISTS wscdb.tp_04_historico_compra (
+  id_historico_compra INT NOT NULL AUTO_INCREMENT,
+  id_usuario INT NOT NULL,
+  id_produto INT NOT NULL,
+  PRIMARY KEY (id_historico_compra),
+  INDEX fk_purchases_historic_users_idx (id_usuario ASC) VISIBLE,
+  INDEX fk_purchases_historic_products1_idx (id_produto ASC) VISIBLE,
+  CONSTRAINT fk_purchases_historic_users
+    FOREIGN KEY (id_usuario)
+    REFERENCES wscdb.tp04_usuarios (id_usuario)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_purchases_historic_products1
+    FOREIGN KEY (id_produto)
+    REFERENCES wscdb.tp04_produtos (id_produto)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
