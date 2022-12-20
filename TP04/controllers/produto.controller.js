@@ -40,6 +40,8 @@ exports.getProdutosDisponiveis = async (req, res, next) => {
                   FROM tp_04_historico_compra
             );
         `);
+        const urlDominio = utils.getApiConfig().url_dominio;
+        resultado.map(r => r.img_url = urlDominio + r.img_url);
         return res.status(200).send({
             mensagem: 'Produtos disponíveis consultado com sucesso!',
             resultado: resultado
@@ -60,7 +62,7 @@ exports.verificaProduto = async (req, res, next) => {
                     SELECT id_produto
                       FROM tp_04_historico_compra  
                );
-        `,[req.body.id_produto]);
+        `,[req.params.id_produto]);
         if (resultado.length == 0) {
             return res.status(404).send({ mensagem: 'ID Produto não encontrado/disponível' });
         }
@@ -76,7 +78,7 @@ exports.deleteProduto = async (req, res, next) => {
         const resultado = await mysql.execute(`
             DELETE FROM tp04_produtos
              WHERE id_produto = ?;
-        `, [req.body.id_produto]);
+        `, [req.params.id_produto]);
         return res.status(200).send({
             mensagem: 'Produto apagado com sucesso!',
             resultado: resultado
@@ -99,7 +101,7 @@ exports.comprarProduto = async (req, res, next) => {
             VALUES(?, ?);
 
             UPDATE tp04_usuarios SET saldo = saldo - ?;
-        `, [res.locals.id_usuario, req.body.id_produto, req.body.preco], mysql.pool_multi);
+        `, [res.locals.id_usuario, req.params.id_produto, req.body.preco], mysql.pool_multi);
         return res.status(200).send({
             mensagem: 'Produto comprado com Sucesso!',
             resultado: resultado

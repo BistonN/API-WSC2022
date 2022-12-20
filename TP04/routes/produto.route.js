@@ -32,14 +32,14 @@ router.get(
 );
 
 router.delete(
-    '/',
+    '/:id_produto',
     login.required,
     produtoController.verificaProduto,
     produtoController.deleteProduto
 );
 
 router.post(
-    '/comprar',
+    '/comprar/:id_produto',
     login.required,
     produtoController.verificaProduto,
     usuarioController.getDadosUsuario,
