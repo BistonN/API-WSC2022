@@ -1,4 +1,5 @@
 -- TP01 ----------------------------------------------------- TP01 --
+
 INSERT INTO tp01_dias_semanas (nome, sigla, codigo)
 VALUES 
 ('Domingo', 'Dom', 'D'),
@@ -14,6 +15,15 @@ VALUES
 ('Caminhada'),
 ('Corrida'),
 ('Pular corda');
+
+-- TP02 ----------------------------------------------------- TP02 --
+
+INSERT INTO tp02_usuarios(usuario, email, senha)
+VALUES(
+	"usuario1234", 
+    "emailusuario@email.com", 
+    "$2b$10$N/phRmXllbjYhLNrj8ZOTuHHVCK72d1fT0R/m51kDjX2dqZ3CTXty"
+);
 
 -- TP03 ----------------------------------------------------- TP03 --
 

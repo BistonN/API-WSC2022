@@ -88,7 +88,24 @@ CREATE TABLE IF NOT EXISTS wscdb.tp01_treinos_semanais (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
--- TP02
+-- -----------------------------------------------------
+-- Table wscdb.tp02_usuarios
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS wscdb.tp02_usuarios ;
+
+CREATE TABLE IF NOT EXISTS wscdb.tp02_usuarios (
+  id_usuario INT NOT NULL AUTO_INCREMENT,
+  email VARCHAR(200) NOT NULL,
+  usuario VARCHAR(200) NOT NULL,
+  senha VARCHAR(200) NOT NULL,
+  PRIMARY KEY (id_usuario))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table wscdb.tp02_corridas_caminhadas
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS wscdb.tp02_corridas_caminhadas ;
 
 CREATE TABLE IF NOT EXISTS wscdb.tp02_corridas_caminhadas (
   id_corrida_caminhada INT NOT NULL AUTO_INCREMENT,
@@ -96,8 +113,16 @@ CREATE TABLE IF NOT EXISTS wscdb.tp02_corridas_caminhadas (
   distancia FLOAT NOT NULL,
   tempo TIME NOT NULL,
   criado DATETIME NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (id_corrida_caminhada))
+  id_usuario INT NOT NULL,
+  PRIMARY KEY (id_corrida_caminhada),
+  INDEX fk_tp02_corridas_caminhadas_tp02_usuarios1_idx (id_usuario ASC) VISIBLE,
+  CONSTRAINT fk_tp02_corridas_caminhadas_tp02_usuarios1
+    FOREIGN KEY (id_usuario)
+    REFERENCES wscdb.tp02_usuarios (id_usuario)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
 
 -- TP03
 
