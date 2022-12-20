@@ -5,7 +5,7 @@ exports.getApiConfig = () => {
 const envNodemon = require('./nodemon.json');
 
     return {
-        jwt_key: 'T7^f%ym0UUz8',
+        jwt_key: envNodemon.env.JWT_KEY,
         url_dominio: 'http://localhost:3000',
         port: 3000,
         web_mysql_user: envNodemon.env.MYSQL_USER,
@@ -15,3 +15,10 @@ const envNodemon = require('./nodemon.json');
         mysql_port: 3306
     };
 }
+
+exports.getError = (error) => {
+    if (error) {
+        console.error(error);
+        return true;
+    }
+};

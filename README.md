@@ -12,7 +12,8 @@ Para a criação do banco de dados:
             "MYSQL_USER": "<usuario-banco-de-dados>",
             "MYSQL_PASSWORD": "<senha-bando-de-dados>",
             "MYSQL_DATABASE": "wscdb",
-            "MYSQL_HOST":  "<host-banco-de-dados>"
+            "MYSQL_HOST":  "<host-banco-de-dados>",
+            "JWT_KEY": "<codigo-para-jwt>"
         }
     }
 3. Instalar as depencias do Projeto
@@ -24,3 +25,6 @@ Para a criação do banco de dados:
 ```sh
 npm start
 ```
+
+### Documentação:
+https://documenter.getpostman.com/view/5769454/2s847PMAsU
