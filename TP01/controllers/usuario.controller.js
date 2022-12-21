@@ -22,6 +22,7 @@ exports.verificarUsuario = async (req, res, next) => {
 
 exports.registrarUsuario = async (req, res) => {
     try {
+        const imagemPaht = req.file ? utils.formatarUrl(req.file.path) : null;
         if (!res.locals.id_usuario) {
             const hash = await bcrypt.hash(req.body.senha, 10);
             await mysql.execute(`
@@ -30,9 +31,10 @@ exports.registrarUsuario = async (req, res) => {
                             email,
                             senha,
                             usuario,
-                            celular
-                        ) VALUES (?,?,?,?,?);`,
-                [req.body.nome, req.body.email, hash, req.body.usuario, req.body.celular]
+                            celular,
+                            imagem_url
+                        ) VALUES (?,?,?,?,?,?);`,
+                [req.body.nome, req.body.email, hash, req.body.usuario, req.body.celular, imagemPaht]
             );
             return res.status(201).send({ message: 'Usuário Cadastrado com Sucesso!' });
         } else {
@@ -56,12 +58,14 @@ exports.getDadosUsuario = async (req, res, next) => {
                     dt_nascimento,
                     peso,
                     altura,
-                    dt_criacao 
+                    imagem_url,
+                    dt_criacao
                FROM tp01_usuarios 
               WHERE id_usuario = ?`,
                 [res.locals.id_usuario]
             );
             res.locals.usuario = dadosUsuarios[0];
+            res.locals.usuario.imagem_url = utils.formatarUrl(res.locals.usuario.imagem_url);
             next();
         } else {
             return res.status(404).send({ mensagem: 'Usuário não encontrado!' });

@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS wscdb.tp01_usuarios (
   dt_nascimento DATE NULL,
   peso FLOAT NULL,
   altura FLOAT NULL,
+  imagem_url VARCHAR(200) NULL,
   dt_criacao DATETIME NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (id_usuario))
 ENGINE = InnoDB;
