@@ -6,7 +6,7 @@ const envNodemon = require('./nodemon.json');
 
     return {
         jwt_key: envNodemon.env.JWT_KEY,
-        url_dominio: 'http://localhost:3000',
+        url_dominio: envNodemon.env.URL_DOMINIO,
         port: 3000,
         web_mysql_user: envNodemon.env.MYSQL_USER,
         web_mysql_password: envNodemon.env.MYSQL_PASSWORD,
@@ -22,3 +22,7 @@ exports.getError = (error) => {
         return true;
     }
 };
+
+exports.formatarUrl = (url) => {
+    return (this.getApiConfig().url_dominio + '\\' + url).replace(/[\\"]/g, '/');
+}

@@ -9,11 +9,11 @@ exports.cadastrarProduto = async (req, res, next) => {
         const resultado = await mysql.execute(`
             INSERT INTO tp04_produtos(nome, descricao, img_url, preco, id_usuario_created)
             VALUES(?, ?, ?, ?, ?)
-        `, [req.body.nome, req.body.descricao, req.file.path, req.body.preco, res.locals.id_usuario]);
+        `, [req.body.nome, req.body.descricao, utils.formatarUrl(req.file.path), req.body.preco, res.locals.id_usuario]);
         return res.status(201).send({
             mensagem: 'Produto inserido com Sucesso!',
             resultado: resultado,
-            path: req.file.path
+            path:  utils.formatarUrl(req.file.path)
         });
     } catch (error) {
         utils.getError(error);

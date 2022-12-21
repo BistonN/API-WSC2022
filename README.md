@@ -13,7 +13,8 @@ Para a criação do banco de dados:
             "MYSQL_PASSWORD": "<senha-bando-de-dados>",
             "MYSQL_DATABASE": "wscdb",
             "MYSQL_HOST":  "<host-banco-de-dados>",
-            "JWT_KEY": "<codigo-para-jwt>"
+            "JWT_KEY": "<codigo-para-jwt>",
+            "URL_DOMINIO": "<host-do-servico>"
         }
     }
 3. Instalar as depencias do Projeto
